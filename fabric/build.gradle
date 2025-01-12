@@ -111,33 +111,3 @@ publishing {
         }
     }
 }
-
-task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
-    dependsOn('build')
-    description = 'Publishes the Fabric build to CurseForge.'
-    group = 'publishing'
-
-    apiToken = project.findProperty("curseforge.api_key") ?: System.getenv("CURSEFORGE_TOKEN") ?: "none"
-
-    def mainFile = upload(curseforge_fabric_project_id, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
-    mainFile.changelog = rootProject.file('CHANGELOG.md').text
-    mainFile.addRequirement("fabric-api")
-    project.minecraft_versions.split(',').toList().each { mainFile.addGameVersion(it) }
-    mainFile.releaseType = "release"
-}
-
-modrinth {
-    token = project.findProperty("modrinth.token") ?: System.getenv("MODRINTH_TOKEN") ?: "none"
-    projectId = project.modrinth_fabric_project_id
-    versionType = project.modrinth_release_type
-    versionNumber = project.version + "+fabric-" + project.minecraft_version
-    uploadFile = remapJar
-    changelog = rootProject.file("CHANGELOG.md").text
-    gameVersions = project.minecraft_versions.split(',').toList()
-    syncBodyFrom = rootProject.file("modrinth.md").text
-    loaders = ['fabric']
-    dependencies {
-        required.project "fabric-api"
-    }
-}
-tasks.modrinth.dependsOn(build)
