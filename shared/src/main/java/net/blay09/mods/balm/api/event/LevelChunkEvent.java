@@ -11,10 +11,10 @@ public abstract class LevelChunkEvent {
     private final ChunkAccess chunk;
     private final ChunkPos chunkPos;
 
-    public LevelChunkEvent(LevelAccessor level, ChunkAccess chunk, ChunkPos chunkPos) {
+    public LevelChunkEvent(LevelAccessor level, ChunkAccess chunk) {
         this.level = level;
         this.chunk = chunk;
-        this.chunkPos = chunkPos;
+        this.chunkPos = chunk.getPos();
     }
 
     public LevelAccessor getLevel() {
@@ -30,14 +30,14 @@ public abstract class LevelChunkEvent {
     }
 
     public static class Load extends LevelChunkEvent {
-        public Load(LevelAccessor level, ChunkAccess chunk, ChunkPos chunkPos) {
-            super(level, chunk, chunkPos);
+        public Load(LevelAccessor level, ChunkAccess chunk) {
+            super(level, chunk);
         }
     }
 
     public static class Unload extends LevelChunkEvent {
-        public Unload(LevelAccessor level, ChunkAccess chunk, ChunkPos chunkPos) {
-            super(level, chunk, chunkPos);
+        public Unload(LevelAccessor level, ChunkAccess chunk) {
+            super(level, chunk);
         }
     }
 

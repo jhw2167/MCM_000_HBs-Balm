@@ -9,6 +9,7 @@ import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.fabricmc.fabric.api.event.lifecycle.v1.ServerChunkEvents;
 import net.fabricmc.fabric.api.event.player.PlayerBlockBreakEvents;
 import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
@@ -16,6 +17,7 @@ import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.level.ChunkPos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,5 +135,16 @@ public class FabricBalmCommonEvents {
             events.fireEventHandlers(event);
             // TODO cannot cancel on fabric
         }));
+
+        events.registerEvent( LevelChunkEvent.Load.class,  () -> ServerChunkEvents.CHUNK_LOAD.register((level, chunk) -> {
+            final LevelChunkEvent.Load event = new LevelChunkEvent.Load(level, chunk);
+            events.fireEventHandlers(event);
+        }));
+
+        events.registerEvent( LevelChunkEvent.Unload.class,  () -> ServerChunkEvents.CHUNK_UNLOAD.register((level, chunk) -> {
+            final LevelChunkEvent.Unload event = new LevelChunkEvent.Unload(level, chunk);
+            events.fireEventHandlers(event);
+        }));
+
     }
 }

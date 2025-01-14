@@ -283,20 +283,17 @@ public class ForgeBalmCommonEvents {
 
         events.registerEvent(LevelChunkEvent.Load.class, priority -> {
             MinecraftForge.EVENT_BUS.addListener(ForgeBalmEvents.toForge(priority), (ChunkEvent.Load orig) -> {
-                ChunkPos pos = orig.getChunk().getPos();
-                final LevelChunkEvent.Load event = new LevelChunkEvent.Load( orig.getLevel(), orig.getChunk(), pos);
+                final LevelChunkEvent.Load event = new LevelChunkEvent.Load(orig.getLevel(), orig.getChunk());
                 events.fireEventHandlers(priority, event);
             });
         });
 
         events.registerEvent(LevelChunkEvent.Unload.class, priority -> {
             MinecraftForge.EVENT_BUS.addListener(ForgeBalmEvents.toForge(priority), (ChunkEvent.Unload orig) -> {
-                ChunkPos pos = orig.getChunk().getPos();
-                final LevelChunkEvent.Unload event = new LevelChunkEvent.Unload( orig.getLevel(), orig.getChunk(), pos);
+                final LevelChunkEvent.Unload event = new LevelChunkEvent.Unload(orig.getLevel(), orig.getChunk());
                 events.fireEventHandlers(priority, event);
             });
         });
-
 
     }
 

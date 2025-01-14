@@ -13,7 +13,7 @@ public class BalmTest {
     public static void init()
     {
         if(true) {
-            return;
+            //return;
         }
 
         EventPriority p = EventPriority.Normal;
