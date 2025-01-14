@@ -1,6 +1,7 @@
 package net.blay09.mods.balm.forge;
 
 import net.blay09.mods.balm.api.Balm;
+import net.blay09.mods.balm.api.BalmTest;
 import net.blay09.mods.balm.api.config.AbstractBalmConfig;
 import net.blay09.mods.balm.api.energy.EnergyStorage;
 import net.blay09.mods.balm.api.fluid.FluidTank;
@@ -42,6 +43,8 @@ public class ForgeBalm {
         });
         providers.register(EnergyStorage.class, new CapabilityToken<>() {
         });
+
+        BalmTest.init();
     }
 
 }
