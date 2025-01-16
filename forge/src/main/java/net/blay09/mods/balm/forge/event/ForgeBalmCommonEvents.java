@@ -2,6 +2,7 @@ package net.blay09.mods.balm.forge.event;
 
 
 import net.blay09.mods.balm.api.event.*;
+import net.blay09.mods.balm.api.event.server.ServerBeforeStartingEvent;
 import net.blay09.mods.balm.api.event.server.ServerStartedEvent;
 import net.blay09.mods.balm.api.event.server.ServerStoppedEvent;
 import net.minecraft.server.level.ServerPlayer;
@@ -65,6 +66,13 @@ public class ForgeBalmCommonEvents {
                 if (orig.phase == TickEvent.Phase.END && orig.side == LogicalSide.SERVER) {
                     handler.handle(((ServerPlayer) orig.player));
                 }
+            });
+        });
+
+        events.registerEvent(ServerBeforeStartingEvent.class, priority -> {
+            MinecraftForge.EVENT_BUS.addListener(ForgeBalmEvents.toForge(priority), (net.minecraftforge.event.server.ServerAboutToStartEvent orig) -> {
+                final ServerBeforeStartingEvent event = new ServerBeforeStartingEvent(orig.getServer());
+                events.fireEventHandlers(priority, event);
             });
         });
 

@@ -18,6 +18,7 @@ Commit #1
 - Added support for LevelEvent.Unload mapping from Forge net.minecraftforge.event.level.LevelEvent.Unload
 - Added support for ChunkEvent.Load mapping from Forge net.minecraftforge.event.level.ChunkEvent.Load
 - Added support for ChunkEvent.Unload mapping from Forge net.minecraftforge.event.level.ChunkEvent.Unload
+- Added support for ServerBeforeStartingEvent mapping from Forge net.minecraftforge.event.server.ServerAboutToStartEvent
 -
 - Added support for LevelEvent.Load mapping from Fabric ServerWorldEvents.LOAD
 - Added support for LevelEvent.Unload mapping from Fabric ServerWorldEvents.UNLOAD
@@ -25,4 +26,7 @@ Commit #1
 - Added support for ChunkEvent.Unload mapping from Fabric ServerChunkEvents.CHUNK_UNLOAD
 - Added support for ChunkEvent.Load mapping from Fabric ClientChunkEvents.CHUNK_LOAD
 - Added support for ChunkEvent.Unload mapping from Fabric ClientChunkEvents.CHUNK_UNLOAD
+
+- Added support for ServerBeforeStartingEvent mapping from Fabric ServerLifecycleEvents.SERVER_STARTING
+
 

@@ -3,6 +3,7 @@ package net.blay09.mods.balm.fabric.event;
 
 import net.blay09.mods.balm.api.event.*;
 import net.blay09.mods.balm.api.event.server.ServerStartedEvent;
+import net.blay09.mods.balm.api.event.server.ServerBeforeStartingEvent;
 import net.blay09.mods.balm.api.event.server.ServerStoppedEvent;
 import net.fabricmc.fabric.api.entity.event.v1.ServerLivingEntityEvents;
 import net.fabricmc.fabric.api.entity.event.v1.ServerPlayerEvents;
@@ -71,6 +72,11 @@ public class FabricBalmCommonEvents {
 
             playerTickEndHandlers.add(handler);
         });
+
+        events.registerEvent(ServerBeforeStartingEvent.class, () -> ServerLifecycleEvents.SERVER_STARTING.register(server -> {
+            final ServerBeforeStartingEvent event = new ServerBeforeStartingEvent(server);
+            events.fireEventHandlers(event);
+        }));
 
         events.registerEvent(ServerStartedEvent.class, () -> ServerLifecycleEvents.SERVER_STARTED.register(server -> {
             final ServerStartedEvent event = new ServerStartedEvent(server);
