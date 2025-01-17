@@ -143,25 +143,16 @@ public class FabricBalmCommonEvents {
             // TODO cannot cancel on fabric
         }));
 
-        events.registerEvent( ChunkEvent.Load.class,  () -> ServerChunkEvents.CHUNK_LOAD.register((level, chunk) -> {
-            final ChunkEvent.Load event = new ChunkEvent.Load(level, chunk);
-            events.fireEventHandlers(event);
-        }));
+        events.registerEvent( ChunkEvent.Unload.class,  () -> {
+            ServerChunkEvents.CHUNK_UNLOAD.register((level, chunk) -> { events.fireEventHandlers(new ChunkEvent.Unload(level, chunk)); });
+            ClientChunkEvents.CHUNK_UNLOAD.register((level, chunk) -> { events.fireEventHandlers(new ChunkEvent.Unload(level, chunk)); });
+        });
 
-        events.registerEvent( ChunkEvent.Unload.class,  () -> ServerChunkEvents.CHUNK_UNLOAD.register((level, chunk) -> {
-            final ChunkEvent.Unload event = new ChunkEvent.Unload(level, chunk);
-            events.fireEventHandlers(event);
-        }));
-
-        events.registerEvent( ChunkEvent.Load.class,  () -> ClientChunkEvents.CHUNK_LOAD.register((level, chunk) -> {
-            final ChunkEvent.Load event = new ChunkEvent.Load(level, chunk);
-            events.fireEventHandlers(event);
-        }));
-
-        events.registerEvent( ChunkEvent.Unload.class,  () -> ClientChunkEvents.CHUNK_UNLOAD.register((level, chunk) -> {
-            final ChunkEvent.Unload event = new ChunkEvent.Unload(level, chunk);
-            events.fireEventHandlers(event);
-        }));
+        //repeat above for chunkEvent.Load
+        events.registerEvent( ChunkEvent.Load.class,  () -> {
+            ServerChunkEvents.CHUNK_LOAD.register((level, chunk) -> { events.fireEventHandlers(new ChunkEvent.Load(level, chunk)); });
+            ClientChunkEvents.CHUNK_LOAD.register((level, chunk) -> { events.fireEventHandlers(new ChunkEvent.Load(level, chunk)); });
+        });
 
         events.registerEvent( LevelEvent.Load.class,  () -> ServerWorldEvents.LOAD.register((server, world) -> {
             final LevelEvent.Load event = new LevelEvent.Load(world);

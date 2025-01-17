@@ -18,12 +18,12 @@ public class BalmTest {
     public static void init()
     {
         if(true) {
-            //return;
+            return;
         }
 
         EventPriority p = EventPriority.Normal;
         BalmEvents registry = Balm.getEvents();
-        //registry.onEvent( ChunkEvent.Load.class, BalmTest::onChunkLoad, p);
+        registry.onEvent( ChunkEvent.Load.class, BalmTest::onChunkLoad, p);
 
         registry.onEvent(LevelEvent.Load.class, BalmTest::onLevelLoad, p);
         //registry.onEvent(LevelEvent.Unload.class, BalmTest::onLevelUnload, p);
@@ -33,7 +33,8 @@ public class BalmTest {
     }
 
     public static void onChunkLoad(ChunkEvent event) {
-        LOG.info("Chunk loaded: " + event.getChunkPos());
+
+        LOG.info("Chunk loaded: " + event.getChunkPos() + " is client side " + event.getLevel().isClientSide());
     }
 
     public static void onLevelLoad(LevelEvent event) {
