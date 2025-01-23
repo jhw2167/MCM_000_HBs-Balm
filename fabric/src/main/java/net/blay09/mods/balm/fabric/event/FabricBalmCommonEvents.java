@@ -17,6 +17,7 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientChunkEvents;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -154,15 +155,16 @@ public class FabricBalmCommonEvents {
             ClientChunkEvents.CHUNK_LOAD.register((level, chunk) -> { events.fireEventHandlers(new ChunkEvent.Load(level, chunk)); });
         });
 
-        events.registerEvent( LevelEvent.Load.class,  () -> ServerWorldEvents.LOAD.register((server, world) -> {
-            final LevelEvent.Load event = new LevelEvent.Load(world);
-            events.fireEventHandlers(event);
-        }));
+        events.registerEvent( LevelEvent.Load.class,  () -> {
+            ServerWorldEvents.LOAD.register((server, world) -> { events.fireEventHandlers( new LevelEvent.Load(world) ); });
+            ClientTickEvents.START_WORLD_TICK.register((world) -> { events.fireEventHandlers( new LevelEvent.Load(world) ); });
+        });
 
-        events.registerEvent( LevelEvent.Unload.class,  () -> ServerWorldEvents.UNLOAD.register((server, world) -> {
-            final LevelEvent.Unload event = new LevelEvent.Unload(world);
-            events.fireEventHandlers(event);
-        }));
+        events.registerEvent( LevelEvent.Unload.class,  () -> {
+            ServerWorldEvents.UNLOAD.register((server, world) -> { events.fireEventHandlers( new LevelEvent.Unload(world) ); });
+            ClientTickEvents.END_WORLD_TICK.register((world) -> { events.fireEventHandlers( new LevelEvent.Unload(world) ); });
+        });
+
 
     }
 }

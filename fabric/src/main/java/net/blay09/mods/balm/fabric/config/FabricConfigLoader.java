@@ -85,7 +85,7 @@ public class FabricConfigLoader {
             configFile.renameTo(backupFile);
             FabricConfigSaver.save(configFile, configData);
             logger.error("The affected properties have been reset to their defaults and a backup of the corrupted version was created under {}",
-                    backupFile.getName());
+                backupFile.getName());
         } else {
             Notoml updated = FabricConfigSaver.toNotoml(configData);
             if (!notoml.containsProperties(updated)) {
@@ -96,7 +96,6 @@ public class FabricConfigLoader {
                 logger.info("The missing properties have been added and a backup of the previous version was created under {}", backupFile.getName());
             }
         }
-        FabricConfigSaver.save(new File(configFile.getParentFile(), "balm-common.out.toml"), configData);
     }
 
     private static File getBackupConfigFile(File configFile) {
