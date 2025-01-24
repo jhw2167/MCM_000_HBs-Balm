@@ -1,6 +1,7 @@
 package net.blay09.mods.balm.fabric;
 
 import net.blay09.mods.balm.api.Balm;
+import net.blay09.mods.balm.api.BalmTest;
 import net.blay09.mods.balm.api.config.AbstractBalmConfig;
 import net.blay09.mods.balm.api.container.BalmContainerProvider;
 import net.blay09.mods.balm.api.energy.EnergyStorage;
@@ -65,6 +66,7 @@ public class FabricBalm implements ModInitializer {
             return null;
         });
 
+        BalmTest.init();
         Balm.initializeIfLoaded("team_reborn_energy", "net.blay09.mods.balm.fabric.compat.energy.RebornEnergy");
     }
 

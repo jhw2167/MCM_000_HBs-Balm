@@ -17,7 +17,8 @@ import net.fabricmc.fabric.api.event.player.UseBlockCallback;
 import net.fabricmc.fabric.api.event.player.UseItemCallback;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientChunkEvents;
-import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientLifecycleEvents;
+import net.fabricmc.fabric.mixin.event.lifecycle.client.ClientWorldMixin;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -149,7 +150,6 @@ public class FabricBalmCommonEvents {
             ClientChunkEvents.CHUNK_UNLOAD.register((level, chunk) -> { events.fireEventHandlers(new ChunkEvent.Unload(level, chunk)); });
         });
 
-        //repeat above for chunkEvent.Load
         events.registerEvent( ChunkEvent.Load.class,  () -> {
             ServerChunkEvents.CHUNK_LOAD.register((level, chunk) -> { events.fireEventHandlers(new ChunkEvent.Load(level, chunk)); });
             ClientChunkEvents.CHUNK_LOAD.register((level, chunk) -> { events.fireEventHandlers(new ChunkEvent.Load(level, chunk)); });
@@ -157,12 +157,12 @@ public class FabricBalmCommonEvents {
 
         events.registerEvent( LevelEvent.Load.class,  () -> {
             ServerWorldEvents.LOAD.register((server, world) -> { events.fireEventHandlers( new LevelEvent.Load(world) ); });
-            ClientTickEvents.START_WORLD_TICK.register((world) -> { events.fireEventHandlers( new LevelEvent.Load(world) ); });
+            //Client levelLoad fired manually from mixin
         });
 
         events.registerEvent( LevelEvent.Unload.class,  () -> {
             ServerWorldEvents.UNLOAD.register((server, world) -> { events.fireEventHandlers( new LevelEvent.Unload(world) ); });
-            ClientTickEvents.END_WORLD_TICK.register((world) -> { events.fireEventHandlers( new LevelEvent.Unload(world) ); });
+            //Client levelUnload fired manually from mixin
         });
 
 

@@ -1,10 +1,12 @@
 package net.blay09.mods.balm.mixin;
 
 import net.blay09.mods.balm.api.Balm;
+import net.blay09.mods.balm.api.event.LevelEvent;
 import net.blay09.mods.balm.api.event.client.OpenScreenEvent;
 import net.blay09.mods.balm.api.event.client.UseItemInputEvent;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.phys.HitResult;
 import org.objectweb.asm.Opcodes;
@@ -39,5 +41,14 @@ public class MinecraftMixin {
             }
         }
     }
+
+    @Inject(method = "clearLevel", at = @At("HEAD"))
+    public void clearLevel(CallbackInfo ci) {
+        ClientLevel clientLevel = (ClientLevel) (Object) this;
+        if(clientLevel != null)
+            Balm.getEvents().fireEvent(new LevelEvent.Unload(clientLevel));
+    }
+
+
 
 }

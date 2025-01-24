@@ -24,8 +24,8 @@ Commit #1
 - FABRIC
 - Added support for LevelEvent.Load mapping from Fabric ServerWorldEvents.LOAD
 - Added support for LevelEvent.Unload mapping from Fabric ServerWorldEvents.UNLOAD
-- Added support for LevelEvent.Load mapping from Fabric ClientTickEvents.StartWorldTick
-- Added support for LevelEvent.Unload mapping from Fabric ClientTickEvents.EndWorldTick
+- Added support for LevelEvent.Load mapping from Fabric ClientLifecycleEvents.CLIENT_STARTED
+- Added support for LevelEvent.Unload mapping from Fabric ClientLifecycleEvents.CLIENT_STOPPING
 - Added support for ChunkEvent.Load mapping from Fabric ServerChunkEvents.CHUNK_LOAD
 - Added support for ChunkEvent.Unload mapping from Fabric ServerChunkEvents.CHUNK_UNLOAD
 - Added support for ChunkEvent.Load mapping from Fabric ClientChunkEvents.CHUNK_LOAD
