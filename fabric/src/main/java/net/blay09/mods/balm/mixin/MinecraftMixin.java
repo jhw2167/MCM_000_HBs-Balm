@@ -23,6 +23,8 @@ public class MinecraftMixin {
 
     @Shadow
     public HitResult hitResult;
+    @Shadow
+    public ClientLevel level;
 
     @ModifyVariable(method = "setScreen(Lnet/minecraft/client/gui/screens/Screen;)V", at = @At(value = "FIELD", target = "Lnet/minecraft/client/Minecraft;screen:Lnet/minecraft/client/gui/screens/Screen;", opcode = Opcodes.GETFIELD, shift = At.Shift.AFTER), argsOnly = true)
     public Screen modifyScreen(Screen screen) {
@@ -42,12 +44,13 @@ public class MinecraftMixin {
         }
     }
 
-    @Inject(method = "clearLevel", at = @At("HEAD"))
-    public void clearLevel(CallbackInfo ci) {
-        ClientLevel clientLevel = (ClientLevel) (Object) this;
-        if(clientLevel != null)
-            Balm.getEvents().fireEvent(new LevelEvent.Unload(clientLevel));
+    @Inject(method = "clearLevel(Lnet/minecraft/client/gui/screens/Screen;)V", at = @At("HEAD"))
+    public void clearLevel(Screen p_91321_, CallbackInfo ci) {
+        if (this.level != null) {
+            Balm.getEvents().fireEvent(new LevelEvent.Unload(this.level));
+        }
     }
+
 
 
 

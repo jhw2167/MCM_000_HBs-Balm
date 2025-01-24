@@ -29,6 +29,7 @@
     "ChatComponentMixin",
     "CheckboxAccessor",
     "ClientPacketListenerMixin",
+    "ClientLevelMixin",
     "DebugScreenOverlayMixin",
     "EntityModelSetAccessor",
     "EntityModelSetMixin",
