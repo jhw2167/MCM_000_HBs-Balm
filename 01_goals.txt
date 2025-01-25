@@ -1,7 +1,14 @@
 Requirements
 ---
+To PR:
 
-Commit #1
+1. Create Feature branch
+2. Make edits
+3. git push --set-upstream origin feature/1.20.1-AddLevelChunkandServerEvents
+4. 
+
+
+Commit #1 - only works with Fabric loader 0.16.0
 ---
 - Added net.blay09.mods.balm.api.event.ChunkEvent class
 - Added Load and Unload ChunkEvent child classes
@@ -24,12 +31,28 @@ Commit #1
 - FABRIC
 - Added support for LevelEvent.Load mapping from Fabric ServerWorldEvents.LOAD
 - Added support for LevelEvent.Unload mapping from Fabric ServerWorldEvents.UNLOAD
-- Added support for LevelEvent.Load mapping from Fabric ClientLifecycleEvents.CLIENT_STARTED
-- Added support for LevelEvent.Unload mapping from Fabric ClientLifecycleEvents.CLIENT_STOPPING
+- Added ClientLevelMixin class to fabric.mixins.json
+- Added support for LevelEvent.Load mapping from Fabric via mixin to to ClientLevel()
+- Added support for LevelEvent.Unload mapping from Fabric via mixin to Minecraft.clearLevel()
 - Added support for ChunkEvent.Load mapping from Fabric ServerChunkEvents.CHUNK_LOAD
 - Added support for ChunkEvent.Unload mapping from Fabric ServerChunkEvents.CHUNK_UNLOAD
 - Added support for ChunkEvent.Load mapping from Fabric ClientChunkEvents.CHUNK_LOAD
 - Added support for ChunkEvent.Unload mapping from Fabric ClientChunkEvents.CHUNK_UNLOAD
 - Added support for ServerBeforeStartingEvent mapping from Fabric ServerLifecycleEvents.SERVER_STARTING
+
+#4 Review Comments
+---
+
+1. ServerBeforeStartingEvent
+```
+I think this should be called either ServerStartingEvent or ServerAboutToStartEvent
+```
+ServerAboutToStartEvent Clashes with Forge name
+ServerStarting is fine I just wanted to make it clear this is just BEFORE the server starts, I can javadoc it
+
+2. ClientLevelMixin
+```
+
+
 
 
